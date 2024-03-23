@@ -1,0 +1,3 @@
+C:/Users/Алексей/Desktop/загрузить/SERVER/build/CMakeFiles/Lavka.dir
+C:/Users/Алексей/Desktop/загрузить/SERVER/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Алексей/Desktop/загрузить/SERVER/build/CMakeFiles/ZERO_CHECK.dir

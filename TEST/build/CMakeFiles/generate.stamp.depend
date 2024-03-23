@@ -1,0 +1,44 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeCInformation.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeCXXInformation.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeCommonLanguageInclude.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeFindDependencyMacro.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeGenericSystem.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeInitializeConfigs.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeLanguageInformation.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeRCInformation.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeSystemSpecificInformation.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeSystemSpecificInitialize.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/Compiler/CMakeCommonCompilerMacros.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/Compiler/MSVC-C.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/Compiler/MSVC-CXX.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/Compiler/MSVC.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/FindGTest.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/FindPackageHandleStandardArgs.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/FindPackageMessage.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/FindPostgreSQL.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/GoogleTest.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/Platform/Windows-MSVC-C.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/Platform/Windows-MSVC-CXX.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/Platform/Windows-MSVC.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/Platform/Windows.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/Platform/WindowsPaths.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/SelectLibraryConfigurations.cmake
+C:/Users/Алексей/Desktop/загрузить/TEST/CMakeLists.txt
+C:/Users/Алексей/Desktop/загрузить/TEST/build/CMakeFiles/3.26.4/CMakeCCompiler.cmake
+C:/Users/Алексей/Desktop/загрузить/TEST/build/CMakeFiles/3.26.4/CMakeCXXCompiler.cmake
+C:/Users/Алексей/Desktop/загрузить/TEST/build/CMakeFiles/3.26.4/CMakeRCCompiler.cmake
+C:/Users/Алексей/Desktop/загрузить/TEST/build/CMakeFiles/3.26.4/CMakeSystem.cmake
+C:/dev/vcpkg/vcpkg/installed/x64-windows/share/gtest/GTestConfig.cmake
+C:/dev/vcpkg/vcpkg/installed/x64-windows/share/gtest/GTestConfigVersion.cmake
+C:/dev/vcpkg/vcpkg/installed/x64-windows/share/gtest/GTestTargets-debug.cmake
+C:/dev/vcpkg/vcpkg/installed/x64-windows/share/gtest/GTestTargets-release.cmake
+C:/dev/vcpkg/vcpkg/installed/x64-windows/share/gtest/GTestTargets.cmake
+C:/dev/vcpkg/vcpkg/installed/x64-windows/share/libpqxx/libpqxx-config-version.cmake
+C:/dev/vcpkg/vcpkg/installed/x64-windows/share/libpqxx/libpqxx-config.cmake
+C:/dev/vcpkg/vcpkg/installed/x64-windows/share/libpqxx/libpqxx-targets-debug.cmake
+C:/dev/vcpkg/vcpkg/installed/x64-windows/share/libpqxx/libpqxx-targets-release.cmake
+C:/dev/vcpkg/vcpkg/installed/x64-windows/share/libpqxx/libpqxx-targets.cmake
+C:/dev/vcpkg/vcpkg/installed/x64-windows/share/nlohmann_json/nlohmann_jsonConfig.cmake
+C:/dev/vcpkg/vcpkg/installed/x64-windows/share/nlohmann_json/nlohmann_jsonConfigVersion.cmake
+C:/dev/vcpkg/vcpkg/installed/x64-windows/share/nlohmann_json/nlohmann_jsonTargets.cmake

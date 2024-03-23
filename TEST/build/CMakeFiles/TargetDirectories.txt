@@ -1,0 +1,3 @@
+C:/Users/Алексей/Desktop/загрузить/TEST/build/CMakeFiles/Test.dir
+C:/Users/Алексей/Desktop/загрузить/TEST/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Алексей/Desktop/загрузить/TEST/build/CMakeFiles/ZERO_CHECK.dir
