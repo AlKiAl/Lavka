@@ -1,4 +1,4 @@
-#main_without_RL_for_TEST and main in folder SERVER
+# main_without_RL_for_TEST and main in folder SERVER
 
 Используют библиотеку: 
 
@@ -7,7 +7,7 @@ pqxx
 crow 
 nlohmann/json
 
-#test_executable in folder TEST
+# test_executable in folder TEST
 
 Использует библиотеку: 
 
@@ -35,7 +35,7 @@ nlohmann/json
     
 а gtest и crow придется собирать вручную: 
 
-##gtest
+## gtest
 
 [gtest](https://gist.github.com/Cartexius/4c437c084d6e388288201aadf9c8cdd5)
 
@@ -55,7 +55,7 @@ nlohmann/json
 
 		sudo ln -s /usr/lib/libgtest_main.a /usr/local/lib/gtest/libgtest_main.a
 
-##crow
+## crow
 
 		# Устанавливаем рабочую директорию
 		touch app
@@ -77,14 +77,14 @@ nlohmann/json
 		find . -maxdepth 1 -type f -name "*.sh" -exec chmod +x {} \; #Эта команда ищет все файлы в текущей директории с расширением .sh и добавляет им права на выполнение (+x).
 
 
-##TEST.sh
+## TEST.sh
 
 Скрипт TEST.sh запускает тест на соответствие Code Responses и Body Responses из openapi.json. В этом скрипте используются файлы из папки TEST. 
 В нем используется файл main_without_RL_for_TEST из SERVER, в котором отсут-т проверка на Rate limiter -- это необходимо чтобы не получать ответ 429 вместо 200 или 400. 
 
 
 
-##TEST_on_RL.sh 
+## TEST_on_RL.sh 
 
 Скрипт TEST_on_RL.sh запускает тест на Rate limiter. В этом скрипте используется утилита ab. 
 
