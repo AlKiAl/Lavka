@@ -1,0 +1,47 @@
+This is ApacheBench, Version 2.3 <$Revision: 1879490 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking localhost (be patient)
+
+
+Server Software:        Crow/master
+Server Hostname:        localhost
+Server Port:            8080
+
+Document Path:          /orders
+Document Length:        193 bytes
+
+Concurrency Level:      10
+Time taken for tests:   1.401 seconds
+Complete requests:      1000
+Failed requests:        980
+   (Connect: 0, Receive: 0, Length: 980, Exceptions: 0)
+Non-2xx responses:      980
+Total transferred:      138760 bytes
+Total body sent:        415000
+HTML transferred:       26400 bytes
+Requests per second:    713.67 [#/sec] (mean)
+Time per request:       14.012 [ms] (mean)
+Time per request:       1.401 [ms] (mean, across all concurrent requests)
+Transfer rate:          96.71 [Kbytes/sec] received
+                        289.23 kb/s sent
+                        385.94 kb/s total
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    4   2.4      3      23
+Processing:     1   10  16.0      7     165
+Waiting:        1    7  12.3      5     161
+Total:          4   14  16.0     10     167
+
+Percentage of the requests served within a certain time (ms)
+  50%     10
+  66%     13
+  75%     14
+  80%     16
+  90%     20
+  95%     23
+  98%     29
+  99%    142
+ 100%    167 (longest request)
