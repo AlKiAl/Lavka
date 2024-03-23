@@ -1,5 +1,15 @@
+ # Замечания
+
 https://editor.swagger.io/ -- для чтения openapi.json
 
+Перед работой с сервером / тестами ознакомьтесь с ABOUT_LAUNCH.md
+
+## Используемые зависимости
+
+* crow как основа HTTP-сервера.
+* pqxx для работы с postgreSQL в рамках C++, а именно хранение jsons и данных с ними связанных. nlohmann/json для обработки json
+* cryptopp для гарантии идемпотентности POST-запроса, а именно SHA256: json $\to$ idempotent key
+* gtest / ab для тестирования MVP и rate limiter соответственно. bash-script для запусков тестов / облегчения работы с разработкой
 _______
 
  
