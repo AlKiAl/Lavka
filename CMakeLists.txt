@@ -19,6 +19,8 @@ userver_setup_environment()
 add_library(${PROJECT_NAME}_objs OBJECT
     src/hello.hpp
     src/hello.cpp
+    src/couriers-handler.hpp
+    src/couriers-handler.cpp    
 )
 target_link_libraries(${PROJECT_NAME}_objs PUBLIC userver::postgresql)
 

@@ -6,4 +6,5 @@ is-testing: false
 
 server-port: 8080
 
-dbconnection: 'postgresql://pg_service_template_user:password@localhost:5432/pg_service_template_db_1'
+#dbconnection: 'postgresql://pg_service_template_user:password@localhost:5432/pg_service_template_db_1'
+dbconnection: 'postgresql://userver:parol@localhost:5432/userver_test' 	#userver_test == db_name
