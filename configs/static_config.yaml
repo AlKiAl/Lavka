@@ -61,8 +61,14 @@ components_manager:
             path: /couriers
             method: POST,GET
             task_processor: main-task-processor  # Run it on CPU bound task processor
-            #max_requests_per_second: 10
-            
+            max_requests_per_second: 10
+        
+        #handler-courier-id:
+            #path: /couriers/{courier_id}
+            #method: GET
+            #task_processor: main-task-processor  # Run it on CPU bound task processor
+            #max_requests_per_second: 10      
+        
             
 
         postgres-db-1:

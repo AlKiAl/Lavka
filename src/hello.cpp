@@ -55,9 +55,11 @@ namespace pg_service_template {
 		      name);
 
 		  if (result.AsSingleRow<int>() > 1) {user_type = UserType::kKnown;}
+		  
 		}
 
 		return pg_service_template::SayHelloTo(name, user_type);
+	      
 	      }
 
 

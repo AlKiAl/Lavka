@@ -11,6 +11,9 @@
 #include <userver/formats/json/value_builder.hpp>
 #include <userver/formats/json.hpp>
 #include <userver/storages/postgres/result_set.hpp>
+
+#include <userver/crypto/hash.hpp>
+
 #include <iostream>
 using namespace std;
 
@@ -35,25 +38,26 @@ namespace pg_service_template {
 
 
 	      
-	      	      Couriers(const userver::components::ComponentConfig& config, const userver::components::ComponentContext& component_context)
+      	      Couriers(const userver::components::ComponentConfig& config, const userver::components::ComponentContext& component_context)
 		  : HttpHandlerBase(config, component_context),
 		    pg_cluster_(component_context.FindComponent<userver::components::Postgres>("postgres-db-1").GetCluster()) {		    
 
-		      
-			  constexpr auto kCreateTable = R"~(
-				    CREATE TABLE IF NOT EXISTS CouriersData 
-				    (
-					id SERIAL PRIMARY KEY, 
-					courier_json VARCHAR
+	      
+		  constexpr auto kCreateTable = R"~(
+			    CREATE TABLE IF NOT EXISTS CouriersData 
+			    (
+				id SERIAL PRIMARY KEY, 
+				courier_json VARCHAR,
+				json_hash CHAR(64) UNIQUE
 
-				    );
-			    )~";
+			    );
+		    )~";
 
 
-			  using storages::postgres::ClusterHostType;
-			  pg_cluster_->Execute(ClusterHostType::kMaster, kCreateTable); // Execute() [3/4]		    
-		    
-		    }
+		  using storages::postgres::ClusterHostType;
+		  pg_cluster_->Execute(ClusterHostType::kMaster, kCreateTable); // Execute() [3/4]		    
+	    
+	    }
 		    
 
 	      std::string HandleRequestThrow(const userver::server::http::HttpRequest& request, userver::server::request::RequestContext&) const override {
@@ -74,35 +78,54 @@ namespace pg_service_template {
  
 		  std::string postCouriers(const userver::server::http::HttpRequest& request) const {
 		  
-		  //formats::json::Value Buffer(FromString(request.RequestBody()));
-		  const std::string body = request.RequestBody();
+		  //formats::json::Value Buffer(FromString(request.RequestBody())); // this it working?
+			
+			Value Array_couriers = FromString(request.RequestBody());
+			if(!Array_couriers.HasMember("couriers") || !Array_couriers["couriers"].IsArray()){
+				
+				request.SetResponseStatus(server::http::HttpStatus::kBadRequest);
+				return "{couriers}";	
+				
+			}
 			  		  	
-    		    string str = "{}";
 			ValueBuilder builder;
 			
 			//for( formats::json::Value   courier : FromString(body)){ // what type of json does it have? WORKING!!!
-			for(const formats::json::Value&  courier : FromString(body)["couriers"]){	// WORKING!!!
+			for(const formats::json::Value& courier : Array_couriers["couriers"]){	// WORKING!!!
 			//for( formats::json::Value&   courier : FromString(body)){ // error!
 			
-	
-			  		
-			  auto result = pg_cluster_->Execute(
-			      userver::storages::postgres::ClusterHostType::kMaster,
-			      "INSERT INTO CouriersData(courier_json) VALUES($1) "
-			      //"ON CONFLICT (courier_json) DO NOTHING"
-			      "RETURNING CouriersData.id"
-			      ,
-			      ToString(courier));
-			      				
-			  /*if (result.IsEmpty()) {
-			    request.SetResponseStatus(server::http::HttpStatus::kNotFound);
-			    return "courier exist";
-			  }*/
-			  
-			  formats::json::ValueBuilder buffer = ValueBuilder(courier);
-			  buffer["courier_id"] = result.AsSingleRow<int>();
+							  		
+				if(!courier.HasMember("courier_type") || !courier.HasMember("regions") ||!courier.HasMember("working_hours") ){
+					
+					request.SetResponseStatus(server::http::HttpStatus::kBadRequest);
+					return "{args couriers}";	
+					
+				}
+							  
+				  const string JsonHash = crypto::hash::Sha256(ToString(courier));
+				  
+				  auto result = pg_cluster_->Execute(/*пробелы в конце строк запроса необходимы!*/
+				      userver::storages::postgres::ClusterHostType::kMaster,
+				      "INSERT INTO CouriersData(courier_json, json_hash) VALUES($1, $2) "
+				      "ON CONFLICT (json_hash) DO NOTHING "
+				      "RETURNING CouriersData.id"
+				      ,
+				      ToString(courier), JsonHash);
+				      				
+				  
+				  if (result.IsEmpty()) {
+				    
+				    result = pg_cluster_->Execute(
+				      userver::storages::postgres::ClusterHostType::kMaster,
+				      "SELECT id FROM CouriersData WHERE json_hash =  $1"
+				      ,
+				      JsonHash);	
+				  }
+				  
+				  ValueBuilder buffer = ValueBuilder(courier);
+				  buffer["courier_id"] = result.AsSingleRow<int>();
 
-			  builder["couriers"].PushBack(buffer.ExtractValue());
+				  builder["couriers"].PushBack(buffer.ExtractValue());
 			  
 			  																	
 			}    		    
@@ -141,14 +164,14 @@ namespace pg_service_template {
 			limit
 			);		    
 
-		    userver::formats::json::ValueBuilder result_json;
+		    ValueBuilder result_json;
 		    for(storages::postgres::Row row : couriers_res){
 
 		    	//result_json["couriers"].PushBack(str.AsSingleRow<Value>("courier_json"));
 		    	cout << row["courier_json"].As<string>() << '\n' << row["id"].As<int>() << '\n';
 		    	ValueBuilder Buffer = ValueBuilder(FromString(row["courier_json"].As<string>()));
 		    	
-		    	Buffer["courier_id"] = row["id"].As<int>(); // without this line not error!
+		    	Buffer["courier_id"] = row["id"].As<int>(); 
 		    	result_json["couriers"].PushBack(Buffer.ExtractValue());
 		    
 		    }		    
