@@ -8,19 +8,20 @@
 #include <userver/components/component_list.hpp>
 
 
-#include <userver/clients/dns/component.hpp>
 #include <userver/components/component.hpp>
-#include <userver/storages/postgres/cluster.hpp>
-#include <userver/storages/postgres/component.hpp>
 #include <userver/utils/assert.hpp>
 #include <userver/formats/json/value_builder.hpp>
 #include <userver/storages/postgres/result_set.hpp>
 
 #include <iostream>
+#include <string>
+using namespace std;
 
 namespace pg_service_template {
 
 
+	using namespace userver::formats::json; // for: FromString; ValueBuilder
+	
 	class CourierId final : public userver::server::handlers::HttpHandlerBase {
 	
 	 public:
@@ -36,15 +37,17 @@ namespace pg_service_template {
 
 		  std::string HandleRequestThrow(const userver::server::http::HttpRequest& request, userver::server::request::RequestContext&) const override {
 
-		    if (!request.HasPathArg("courier_id")) {
+		    const int id = stoi(request.GetPathArg("courier_id"));
+		    
+		    if (!request.HasPathArg("courier_id") || id <= 0) {
 			request.SetResponseStatus(userver::server::http::HttpStatus::kBadRequest);
 			return "{}";
 		    }
 
-		    int id = stoi(request.GetPathArg("courier_id"));
+		    
 
 		    auto courier = pg_cluster_->Execute(userver::storages::postgres::ClusterHostType::kMaster,
-				         "select * from public.CouriersData where id=$1;", id);
+				         "select courier_json from public.CouriersData where id=$1;", id);
 
 		    
 		    if (courier.IsEmpty()) {
@@ -52,7 +55,10 @@ namespace pg_service_template {
 			return "{}";	    	
 		    }
 		    
-		    return "not error";
+		    ValueBuilder buffer = ValueBuilder(FromString(courier.AsSingleRow<string>()));
+		    buffer["courier_id"] = id;
+		    
+		    return ToString(buffer.ExtractValue());
 		  }
 		  
 	  

@@ -84,7 +84,7 @@ namespace pg_service_template {
 			if(!Array_couriers.HasMember("couriers") || !Array_couriers["couriers"].IsArray()){
 				
 				request.SetResponseStatus(server::http::HttpStatus::kBadRequest);
-				return "{couriers}";	
+				return "{}";	
 				
 			}
 			  		  	
@@ -98,7 +98,7 @@ namespace pg_service_template {
 				if(!courier.HasMember("courier_type") || !courier.HasMember("regions") ||!courier.HasMember("working_hours") ){
 					
 					request.SetResponseStatus(server::http::HttpStatus::kBadRequest);
-					return "{args couriers}";	
+					return "{}";	
 					
 				}
 							  
@@ -168,7 +168,7 @@ namespace pg_service_template {
 		    for(storages::postgres::Row row : couriers_res){
 
 		    	//result_json["couriers"].PushBack(str.AsSingleRow<Value>("courier_json"));
-		    	cout << row["courier_json"].As<string>() << '\n' << row["id"].As<int>() << '\n';
+		    	//cout << row["courier_json"].As<string>() << '\n' << row["id"].As<int>() << '\n';
 		    	ValueBuilder Buffer = ValueBuilder(FromString(row["courier_json"].As<string>()));
 		    	
 		    	Buffer["courier_id"] = row["id"].As<int>(); 

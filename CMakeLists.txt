@@ -21,8 +21,8 @@ add_library(${PROJECT_NAME}_objs OBJECT
     src/hello.cpp
     src/couriers-handler.hpp
     src/couriers-handler.cpp  
-    #src/courier-id-handler.hpp
-    #src/courier-id-handler.cpp       
+    src/courier-id-handler.hpp
+    src/courier-id-handler.cpp       
 )
 target_link_libraries(${PROJECT_NAME}_objs PUBLIC userver::postgresql)
 
