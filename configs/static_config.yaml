@@ -68,9 +68,27 @@ components_manager:
             method: GET
             task_processor: main-task-processor  # Run it on CPU bound task processor
             max_requests_per_second: 10      
-        
-            
 
+
+
+        handler-orders:
+            path: /orders
+            method: POST,GET
+            task_processor: main-task-processor  # Run it on CPU bound task processor
+            max_requests_per_second: 10        
+            
+        handler-order-id:
+            path: /orders/{order_id}
+            method: GET
+            task_processor: main-task-processor  # Run it on CPU bound task processor
+            max_requests_per_second: 10
+            
+        handler-order-complete:
+            path: /orders/complete
+            method: POST
+            task_processor: main-task-processor  # Run it on CPU bound task processor
+            max_requests_per_second: 10
+                        
         postgres-db-1:
             dbconnection: $dbconnection
             blocking_task_processor: fs-task-processor

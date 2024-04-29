@@ -45,7 +45,6 @@ namespace pg_service_template {
 		    }
 
 		    
-
 		    auto courier = pg_cluster_->Execute(userver::storages::postgres::ClusterHostType::kMaster,
 				         "select courier_json from public.CouriersData where id=$1;", id);
 

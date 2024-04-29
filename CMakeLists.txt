@@ -22,7 +22,13 @@ add_library(${PROJECT_NAME}_objs OBJECT
     src/couriers-handler.hpp
     src/couriers-handler.cpp  
     src/courier-id-handler.hpp
-    src/courier-id-handler.cpp       
+    src/courier-id-handler.cpp
+    src/orders-handler.hpp
+    src/orders-handler.cpp  
+    src/order-id-handler.hpp
+    src/order-id-handler.cpp 
+	src/order-complete-handler.cpp
+	src/order-complete-handler.hpp             
 )
 target_link_libraries(${PROJECT_NAME}_objs PUBLIC userver::postgresql)
 

@@ -15,6 +15,7 @@
 #include <userver/crypto/hash.hpp>
 
 #include <iostream>
+#include <string>
 using namespace std;
 
 namespace pg_service_template {
@@ -104,7 +105,8 @@ namespace pg_service_template {
 							  
 				  const string JsonHash = crypto::hash::Sha256(ToString(courier));
 				  
-				  auto result = pg_cluster_->Execute(/*пробелы в конце строк запроса необходимы!*/
+				  
+					storages::postgres::ResultSet result = pg_cluster_->Execute(/*пробелы в конце строк запроса необходимы!*/
 				      userver::storages::postgres::ClusterHostType::kMaster,
 				      "INSERT INTO CouriersData(courier_json, json_hash) VALUES($1, $2) "
 				      "ON CONFLICT (json_hash) DO NOTHING "
@@ -176,7 +178,9 @@ namespace pg_service_template {
 		    
 		    }		    
 		    
-
+		    if(result_json.IsEmpty()){
+		    	return "{}";
+		    }			    
 		    
 		    return ToString(result_json.ExtractValue());
 		  }

@@ -6,8 +6,13 @@
 #include <userver/utils/daemon_run.hpp>
 
 #include "hello.hpp"
+
 #include "couriers-handler.hpp"
 #include "courier-id-handler.hpp"
+
+#include "orders-handler.hpp"
+#include "order-id-handler.hpp"
+#include "order-complete-handler.hpp"
 
 int main(int argc, char* argv[]) {
   auto component_list = userver::components::MinimalServerComponentList()
@@ -18,8 +23,13 @@ int main(int argc, char* argv[]) {
 
 
   pg_service_template::AppendHello(component_list);
+  
   pg_service_template::AppendCouriers(component_list);
   pg_service_template::AppendCourierId(component_list);
+
+  order_controller::AppendOrders(component_list);
+  order_controller::AppendOrderId(component_list);
+  order_controller::AppendOrderComplete(component_list);
   
   return userver::utils::DaemonMain(argc, argv, component_list);
 }
