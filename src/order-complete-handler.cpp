@@ -3,6 +3,8 @@
 #include "order-id-handler.hpp"
 
 #include <userver/formats/json.hpp>
+#include <userver/formats/json/value_builder.hpp>
+
 #include <userver/clients/dns/component.hpp>
 #include <userver/server/handlers/http_handler_base.hpp>
 #include <userver/storages/postgres/cluster.hpp>
@@ -63,6 +65,8 @@ namespace order_controller {
 			if(!Array_complete_info.HasMember("complete_info") || !Array_complete_info["complete_info"].IsArray()){
 				
 				request.SetResponseStatus(server::http::HttpStatus::kBadRequest);
+				
+				cout << "error in complete_info\n";
 				return "{}";	
 				
 			}
@@ -76,6 +80,7 @@ namespace order_controller {
 				if(!info.HasMember("courier_id") || !info.HasMember("order_id") ||!info.HasMember("complete_time")){
 					
 					request.SetResponseStatus(server::http::HttpStatus::kBadRequest);
+					cout << "not key\n";
 					return "{}";	
 					
 				}
@@ -83,24 +88,32 @@ namespace order_controller {
 				try{
 				  auto result = pg_cluster_->Execute(/*пробелы в конце строк запроса необходимы!*/
 				      userver::storages::postgres::ClusterHostType::kMaster,
-				      "INSERT INTO complete_info(courier_id, order_id, complete_time) VALUES($1, $2, $3) "
+				      "INSERT INTO complete_info(courier_id, order_id, complete_time) VALUES($1, $2, $3) ON CONFLICT DO NOTHING "
 				      ,
 				      info["courier_id"].As<int>(), info["order_id"].As<int>(), info["complete_time"].As<string>());
 				      
 				  }catch(...){
 					  request.SetResponseStatus(server::http::HttpStatus::kBadRequest);
-				  	return "{error}";	
+					  cout << "not exist\n";
+				  	return "{}";	
 				  }
-				      								
+				      												
+			
+				    auto order = pg_cluster_->Execute(userver::storages::postgres::ClusterHostType::kMaster,
+			         		"select order_json, completed_time from public.OrdersData where id=$1;", info["order_id"].As<int>());
 
-				  /*if (result.IsEmpty()) {
-					  request.SetResponseStatus(server::http::HttpStatus::kBadRequest);
-				  	return "{is empty}";
-				  }*/				
+	    
+	    
+				    ValueBuilder buffer = ValueBuilder(order[0][0].As<Value>()); // сли что: см. o-h.cpp line 186
+				    buffer["order_id"] = info["order_id"].As<int>();
+				    buffer["completed_time"] = order[0][1].As<string>();
+				    builder.PushBack(move(buffer));
+				    	
+			
 			}	
 						  	
 		  	
-		  	return "{}";	    
+    			return ToString(builder.ExtractValue());
 		  }
 	  
 	  

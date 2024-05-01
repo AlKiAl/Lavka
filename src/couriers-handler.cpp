@@ -18,7 +18,7 @@
 #include <string>
 using namespace std;
 
-namespace pg_service_template {
+namespace courier_controller {
 
 
 
@@ -197,7 +197,7 @@ namespace pg_service_template {
       component_list.Append<Couriers>(); // Courier defenition in namespace{/**/};
     }
 
-}  // namespace pg_service_template
+}  // namespace courier_controller
 
 /*
 http://localhost:8080/couriers
@@ -219,6 +219,6 @@ http://localhost:8080/couriers?limit=2&offset=0
 */
 
 /*
-psql -h localhost -p 15433 -U testsuite pg_service_template_db_1
+psql -h localhost -p 15433 -U testsuite courier_controller_db_1
 SELECT * FROM CouriersData;
 */

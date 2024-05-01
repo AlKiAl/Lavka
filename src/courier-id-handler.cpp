@@ -17,7 +17,7 @@
 #include <string>
 using namespace std;
 
-namespace pg_service_template {
+namespace courier_controller {
 
 
 	using namespace userver::formats::json; // for: FromString; ValueBuilder
@@ -69,4 +69,4 @@ namespace pg_service_template {
 	}
 
 
-} // namespace pg_service_template
+} // namespace courier_controller

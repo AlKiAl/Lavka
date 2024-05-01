@@ -5,9 +5,9 @@
 
 #include <userver/components/component_list.hpp>
 
-namespace pg_service_template {
+namespace courier_controller {
 
 
 	void AppendCouriers(userver::components::ComponentList& component_list);
 
-}  // namespace pg_service_template
+}  // namespace courier_controller
